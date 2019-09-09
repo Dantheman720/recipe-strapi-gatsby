@@ -1,0 +1,33 @@
+{
+  "connection": "default",
+  "collectionName": "",
+  "info": {
+    "name": "recipe",
+    "description": ""
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "recipename": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "ingredients": {
+      "type": "json"
+    },
+    "slug": {
+      "type": "string"
+    },
+    "picture": {
+      "model": "file",
+      "via": "related",
+      "plugin": "upload"
+    },
+    "excerpt": {
+      "type": "text"
+    }
+  }
+}
