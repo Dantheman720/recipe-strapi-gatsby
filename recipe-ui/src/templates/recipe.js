@@ -4,7 +4,7 @@ import Layout from "../components/layout";
 export default({pageContext}) => {
     return (
         <Layout>
-            {pageContext.recipename}
+            <pre>{JSON.stringify(pageContext, undefined, 2)}</pre>
         </Layout>
     )
 }
