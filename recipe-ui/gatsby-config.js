@@ -28,6 +28,8 @@ module.exports = {
         },
       },
     },
+    `gatsby-plugin-antd`,
+    `gatsby-plugin-styled-components`,
 
     {
       resolve: `gatsby-plugin-manifest`,
