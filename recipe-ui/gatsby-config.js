@@ -13,6 +13,17 @@ module.exports = {
         path: `${__dirname}/src/images`,
       },
     },
+    'gatsby-theme-apollo',
+    {
+      resolve: "gatsby-source-graphql",
+      options: {
+        // This type will contain remote schema Query type
+        typeName: "Strapi",
+        // This is field under which it's accessible
+        fieldName: "strapi",
+        // Url to query from
+        url: "http://localhost:1337/graphql",
+      }},
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {

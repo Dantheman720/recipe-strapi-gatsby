@@ -1,7 +1,7 @@
 .idea/
 /recipe-demo-action/.cache/
 /recipe-demo-action/build/
-/recipe-demo-action/config/environments/
+/recipe-demo-action/config/environments/development/database.json
 /recipe-demo-action/node_modules
 /recipe-demo-action/public
 /recipe-demo-action/package-lock.json
