@@ -13,7 +13,6 @@ module.exports = {
         path: `${__dirname}/src/images`,
       },
     },
-    'gatsby-theme-apollo',
     {
       resolve: "gatsby-source-graphql",
       options: {
