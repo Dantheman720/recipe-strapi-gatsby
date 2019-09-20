@@ -30,12 +30,15 @@ export default({pageContext}) => {
                         display: "flex",
                     }}
                 >
-                    <img src={pageContext.picture.childImageSharp.fluid.src} alt="" />
+                    <img src={pageContext.picture.childImageSharp.fixed.src} alt="" />
                 </Col>
-            </Row>
-            <Row>
-                <Col span={6} offset={9} style={{ textAlign: "center" }}>
+                <Row style={{ textAlign: "center" }}>
+
                     <h2>Ingredients</h2>
+                </Row>
+            </Row>
+            <Row style={{ display: "flex", flexDirection: "column", justifyContent: "center", textAlign: "center", alignItems: "center" }}>
+                <Col span={12}>
                     <IngredientTable ingredients={ingredientsWithKeys(pageContext.ingredients)} />
                 </Col>
             </Row>
@@ -43,7 +46,8 @@ export default({pageContext}) => {
                 <Col offset={4} span={16}>
                     <p>{pageContext.description}</p>
                 </Col>
-            </Row>
+            </Row
+            >
         </Layout>
     )
 }

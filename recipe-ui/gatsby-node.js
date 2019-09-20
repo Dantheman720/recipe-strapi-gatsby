@@ -22,7 +22,7 @@ exports.createPages = async ({ graphql, actions }) => {
             excerpt
             picture {
               childImageSharp {
-                fluid {
+            fixed(width: 500, height: 500) {
                   src
                 }
               }
