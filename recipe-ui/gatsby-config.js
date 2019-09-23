@@ -1,8 +1,8 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    title: `Really Cool Recipe App`,
+    description: `Make some super tasty recipes`,
+    author: `@dpcoughlin`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -13,7 +13,6 @@ module.exports = {
         path: `${__dirname}/src/images`,
       },
     },
-    'gatsby-theme-apollo',
     {
       resolve: "gatsby-source-graphql",
       options: {
