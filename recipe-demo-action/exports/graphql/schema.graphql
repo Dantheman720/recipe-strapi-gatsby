@@ -157,6 +157,7 @@ type Query {
   user(id: ID!): UsersPermissionsUser
   users(sort: String, limit: Int, start: Int, where: JSON): [UsersPermissionsUser]
   usersConnection(sort: String, limit: Int, start: Int, where: JSON): UsersPermissionsUserConnection
+  recipeByName(where: JSON): [Recipe]
   me: UsersPermissionsMe
 }
 
