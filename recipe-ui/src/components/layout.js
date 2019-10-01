@@ -7,36 +7,40 @@
 
 import React from "react"
 import PropTypes from "prop-types"
-import { useStaticQuery, graphql } from "gatsby"
-
-import Header from "./header"
+import { Layout as AntLayout, Menu } from "antd"
 import "./layout.css"
+import { Link } from "gatsby"
+
+const { Header, Footer, Content } = AntLayout
 
 const Layout = ({ children }) => {
-  const data = useStaticQuery(graphql`
-    query SiteTitleQuery {
-      site {
-        siteMetadata {
-          title
-        }
-      }
-    }
-  `)
+  const location = window.location.pathname
 
   return (
-    <>
-      <Header siteTitle={data.site.siteMetadata.title} />
-      <div
-        style={{
-          margin: `0 auto`,
-          maxWidth: 960,
-          padding: `0px 1.0875rem 1.45rem`,
-          paddingTop: 0,
-        }}
-      >
-        <main>{children}</main>
-      </div>
-    </>
+    <AntLayout className="layout">
+      <Header style={{ textAlign: "center" }}>
+        <div className="logo" />
+        <Menu
+          theme="dark"
+          mode="horizontal"
+          defaultSelectedKeys={[location]}
+          style={{ lineHeight: "64px" }}
+        >
+          <Menu.Item key="/" style={{ margin: "0 50px" }}>
+            <Link to="/">Home</Link>
+          </Menu.Item>
+          <Menu.Item key="/recipes" style={{ margin: "0 50px" }}>
+            <Link to="/recipe-search">Recipes</Link>
+          </Menu.Item>
+        </Menu>
+      </Header>
+      <Content style={{ padding: "0 50px" }}>
+        <div style={{ background: "#fff", padding: 24, minHeight: 280 }}>
+          {children}
+        </div>
+      </Content>
+      <Footer style={{ textAlign: "center" }}>Created by Dan Coughlin</Footer>
+    </AntLayout>
   )
 }
 
