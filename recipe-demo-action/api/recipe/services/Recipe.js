@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 /**
  * Read the documentation () to implement custom service functions
@@ -13,3 +13,4 @@ module.exports = {
       .find({ recipename: { $regex: ".*" + name + ".*", $options: "i" } });
   }
 };
+

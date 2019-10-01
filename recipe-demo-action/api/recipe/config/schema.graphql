@@ -1,18 +1,18 @@
 module.exports = {
-definition: ``,
-query: `
+    definition: ``,
+    query: `
 recipeByName(where: JSON): [Recipe]
 `,
-type: {},
-resolver: {
-Query: {
-recipeByName: {
-description: "Find things",
-resolver: async (obj, options, { context }) => {
-const resp = await strapi.controllers.recipe.recipeByName(context)
-return resp
-},
-},
-},
-},
+    type: {},
+    resolver: {
+        Query: {
+            recipeByName: {
+                description: "Find things",
+                resolver: async (obj, options, { context }) => {
+                    const resp = await strapi.controllers.recipe.recipeByName(context)
+                    return resp
+                },
+            },
+        },
+    },
 }
