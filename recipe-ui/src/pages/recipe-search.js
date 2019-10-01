@@ -12,6 +12,11 @@ const GET_RECIPES = gql`
   query GET_RECIPES($name: String!) {
     recipeByName(where: { name: $name }) {
       recipename
+      excerpt
+      slug
+      picture {
+        url
+      }
     }
   }
 `
@@ -25,7 +30,7 @@ const RecipeSearch = () => {
     <Layout>
       <SEO title="Home" />
       <Row style={{ paddingBottom: "50px" }}>
-        <Col span={12} offset={5}>
+        <Col span={12} offset={6}>
           <Search
             placeholder="input search text"
             onSearch={term => setSearchTerm(term)}
@@ -34,8 +39,11 @@ const RecipeSearch = () => {
           />
         </Col>
       </Row>
-
-      <RecipeList results={data} />
+      <Row style={{ paddingBottom: "50px" }}>
+        <Col span={14} offset={5}>
+          {!loading && !error && <RecipeList results={data} />}
+        </Col>
+      </Row>
     </Layout>
   )
 }
