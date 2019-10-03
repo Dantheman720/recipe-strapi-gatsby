@@ -23,16 +23,17 @@ const RecipeItem = props => {
           <Col
             span={6}
             style={{
-              backgroundColor: "red",
               height: "300px",
               width: "300px",
               margin: "10px",
             }}
           >
-            <img
-              src={`${localConfig.url}${picture.url}`}
-              style={{ height: "100%", width: "100%" }}
-            />
+            {picture && (
+              <img
+                src={`${localConfig.url}${picture.url}`}
+                style={{ height: "100%", width: "100%" }}
+              />
+            )}
           </Col>
           <Col
             span={18}
