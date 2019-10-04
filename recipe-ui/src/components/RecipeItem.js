@@ -31,6 +31,7 @@ const RecipeItem = props => {
             {picture && (
               <img
                 src={`${localConfig.url}${picture.url}`}
+                alt="Fully cooked meal!"
                 style={{ height: "100%", width: "100%" }}
               />
             )}

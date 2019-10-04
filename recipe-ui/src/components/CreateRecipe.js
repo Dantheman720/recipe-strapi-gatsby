@@ -1,9 +1,10 @@
 import React from "react"
 import { useMutation } from "@apollo/react-hooks"
 import { Formik, Form, Field, FieldArray } from "formik"
-import { Col, Row, Input, Button, Icon } from "antd"
+import { Col, Row, Input, Button, Icon, Upload } from "antd"
 import styled from "styled-components"
 import gql from "graphql-tag"
+import { localConfig } from "../config"
 
 const { TextArea } = Input
 
@@ -14,6 +15,7 @@ const CREATE_RECIPE_MUTATION = gql`
     $ingredients: JSON
     $slug: String
     $excerpt: String!
+    $file: Upload
   ) {
     createRecipe(
       input: {
@@ -30,14 +32,11 @@ const CREATE_RECIPE_MUTATION = gql`
         recipename
       }
     }
+    upload(file: $file) {
+      id
+    }
   }
 `
-
-const AddRecipe = async values => {
-  // let recipename, excerpt, description
-  //
-  // return <div>Hello</div>
-}
 
 const CreateRecipeFormWrapper = styled.div`
   input,
@@ -64,16 +63,17 @@ const IngredientTableWrapper = styled.div`
 
 const IngredientForm = () => {
   const [createRecipe] = useMutation(CREATE_RECIPE_MUTATION)
+  const [upload] = useMutation(CREATE_RECIPE_MUTATION)
 
   return (
     <div>
       <Formik
         onSubmit={async e => {
           const slug = e.recipename.replace(/\s+/g, "-").toLowerCase()
-
+          console.log(e)
           e.slug = slug
-          const thing = await createRecipe({ variables: e })
-          console.log(thing)
+          // const thing = await createRecipe({ variables: e })
+          // console.log(thing)
         }}
         render={({ values }) => (
           <Form>
@@ -112,6 +112,39 @@ const IngredientForm = () => {
                     autosize={{ minRows: 10, maxRows: 20 }}
                     placeholder="Eggs, bacon and toast. Eggs, bacon and toast. Why don’t you start your day the Girgich way with eggs, bacon and…"
                   />
+                )}
+              />
+              <label>Image</label>
+
+              <Field
+                name="picture"
+                render={({ field /* { name, value, onChange, onBlur } */ }) => (
+                  <Upload
+                    action={`${localConfig.url}/upload`}
+                    customRequest={async ({
+                      headers,
+                      file,
+                      action,
+                      onSuccess,
+                    }) => {
+                      const data = new FormData()
+                      console.log(file)
+                      data.append("files", file)
+
+                      const res = await fetch(action, {
+                        method: "POST",
+                        mode: "no-cors",
+                        headers: {
+                          "Content-Type": "image/*",
+                        },
+                        body: data,
+                      })
+                    }}
+                  >
+                    <Button>
+                      <Icon type="upload" /> Click to Upload
+                    </Button>
+                  </Upload>
                 )}
               />
             </CreateRecipeFormWrapper>
