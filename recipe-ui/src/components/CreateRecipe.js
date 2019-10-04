@@ -15,7 +15,6 @@ const CREATE_RECIPE_MUTATION = gql`
     $ingredients: JSON
     $slug: String
     $excerpt: String!
-    $file: Upload
   ) {
     createRecipe(
       input: {
@@ -29,11 +28,8 @@ const CREATE_RECIPE_MUTATION = gql`
       }
     ) {
       recipe {
-        recipename
+        id
       }
-    }
-    upload(file: $file) {
-      id
     }
   }
 `
@@ -63,19 +59,37 @@ const IngredientTableWrapper = styled.div`
 
 const IngredientForm = () => {
   const [createRecipe] = useMutation(CREATE_RECIPE_MUTATION)
-  const [upload] = useMutation(CREATE_RECIPE_MUTATION)
+  // const [upload] = useMutation(CREATE_RECIPE_MUTATION)
 
   return (
     <div>
       <Formik
         onSubmit={async e => {
           const slug = e.recipename.replace(/\s+/g, "-").toLowerCase()
-          console.log(e)
           e.slug = slug
-          // const thing = await createRecipe({ variables: e })
+          const recipe = await createRecipe({ variables: e })
+          const recipeId = recipe.data.createRecipe.recipe.id
+
+          const data = new FormData()
+          data.append("files", e.files)
+          data.append("ref", "recipe")
+          data.append("refId", recipeId)
+          data.append("field", "picture")
+
+          const res = await fetch(`${localConfig.url}/upload`, {
+            method: "POST",
+            mode: "no-cors",
+            headers: {
+              "Content-Type": "image/*",
+            },
+            body: data,
+          })
+
+          // console.log(res)
+
           // console.log(thing)
         }}
-        render={({ values }) => (
+        render={({ values, setFieldValue }) => (
           <Form>
             <CreateRecipeFormWrapper>
               <label>Recipe Name</label>
@@ -119,32 +133,15 @@ const IngredientForm = () => {
               <Field
                 name="picture"
                 render={({ field /* { name, value, onChange, onBlur } */ }) => (
-                  <Upload
-                    action={`${localConfig.url}/upload`}
-                    customRequest={async ({
-                      headers,
-                      file,
-                      action,
-                      onSuccess,
-                    }) => {
-                      const data = new FormData()
-                      console.log(file)
-                      data.append("files", file)
-
-                      const res = await fetch(action, {
-                        method: "POST",
-                        mode: "no-cors",
-                        headers: {
-                          "Content-Type": "image/*",
-                        },
-                        body: data,
-                      })
+                  <input
+                    type="file"
+                    {...field}
+                    onChange={e => {
+                      const file = e.target.files[0]
+                      setFieldValue("files", file)
+                      console.log(e.target.files[0])
                     }}
-                  >
-                    <Button>
-                      <Icon type="upload" /> Click to Upload
-                    </Button>
-                  </Upload>
+                  />
                 )}
               />
             </CreateRecipeFormWrapper>
