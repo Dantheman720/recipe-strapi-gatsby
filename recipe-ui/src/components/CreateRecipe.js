@@ -5,15 +5,15 @@ import { Col, Row, Input, Button, Icon, Upload } from "antd"
 import styled from "styled-components"
 import gql from "graphql-tag"
 import { localConfig } from "../config"
-
+import * as Yup from "yup"
 const { TextArea } = Input
 
 const CREATE_RECIPE_MUTATION = gql`
   mutation CREATE_RECIPE_MUTATION(
-    $description: String
-    $recipename: String
-    $ingredients: JSON
-    $slug: String
+    $description: String!
+    $recipename: String!
+    $ingredients: JSON!
+    $slug: String!
     $excerpt: String!
   ) {
     createRecipe(
@@ -33,6 +33,13 @@ const CREATE_RECIPE_MUTATION = gql`
     }
   }
 `
+
+const CreateRecipeSchema = Yup.object().shape({
+  recipename: Yup.string().required("Required"),
+  excerpt: Yup.string().required("Required"),
+  description: Yup.string().required("Required"),
+  ingredients: Yup.array().required("Required"),
+})
 
 const CreateRecipeFormWrapper = styled.div`
   input,
@@ -64,6 +71,7 @@ const IngredientForm = () => {
   return (
     <div>
       <Formik
+        validationSchema={CreateRecipeSchema}
         onSubmit={async e => {
           const slug = e.recipename.replace(/\s+/g, "-").toLowerCase()
           e.slug = slug
@@ -84,12 +92,8 @@ const IngredientForm = () => {
             },
             body: data,
           })
-
-          // console.log(res)
-
-          // console.log(thing)
         }}
-        render={({ values, setFieldValue }) => (
+        render={({ values, setFieldValue, errors, touched }) => (
           <Form>
             <CreateRecipeFormWrapper>
               <label>Recipe Name</label>
@@ -156,19 +160,19 @@ const IngredientForm = () => {
                         <IngredientTableWrapper>
                           <Col offset={5} span={24} style={{ display: "flex" }}>
                             <Field
-                              name={`ingredients.${index}.name`}
+                              name={`ingredients.${index}.amount`}
                               component={InputComponent}
                               placeholder="1"
                               span={3}
                             />
                             <Field
-                              name={`ingredients.${index}.amount`}
+                              name={`ingredients.${index}.measurement`}
                               component={InputComponent}
                               placeholder="tbsp"
                               span={4}
                             />
                             <Field
-                              name={`ingredients.${index}.measurement`}
+                              name={`ingredients.${index}.name`}
                               component={InputComponent}
                               placeholder="Powdered Eggs"
                               span={6}
@@ -220,6 +224,9 @@ const IngredientForm = () => {
                       Submit
                     </Button>
                   </IngredientWrapper>
+                  {errors && Object.entries(touched).length > 0 && (
+                    <div>Fill out the form!</div>
+                  )}
                 </>
               )}
             />
