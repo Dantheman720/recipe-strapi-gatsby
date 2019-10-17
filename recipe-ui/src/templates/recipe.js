@@ -2,6 +2,7 @@ import React from "react"
 import Layout from "../components/layout"
 import { Row, Col } from "antd"
 import IngredientTable from "../components/IngredientTable"
+import RecipeTable from "../components/RecipeTable"
 
 function ingredientsWithKeys(ingredients) {
   let counter = 0
@@ -44,6 +45,13 @@ export default ({ pageContext }) => {
       >
         <Col span={12}>
           <IngredientTable
+            ingredients={ingredientsWithKeys(pageContext.ingredients)}
+          />
+        </Col>
+      </Row>
+      <Row>
+        <Col offset={4} span={16}>
+          <RecipeTable
             ingredients={ingredientsWithKeys(pageContext.ingredients)}
           />
         </Col>
