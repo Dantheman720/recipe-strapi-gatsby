@@ -1,6 +1,22 @@
 import React, { useState } from "react"
 import styled from "styled-components"
 import Ingredient from "./Ingredient"
+import gql from "graphql-tag"
+import { useMutation } from "@apollo/react-hooks"
+
+const CREATE_RECIPE_MUTATION = gql`
+  mutation CREATE_RECIPE_MUTATION($ingredients: JSON!, $recipeId: ID!) {
+    updateRecipe(
+      input: { where: { id: $recipeId }, data: { ingredients: $ingredients } }
+    ) {
+      recipe {
+        id
+        recipename
+      }
+    }
+  }
+`
+const IngredientContext = React.createContext()
 
 const IngredientTableWrapper = styled.div`
   display: flex;
@@ -44,37 +60,40 @@ const IngredientTableWrapper = styled.div`
   }
 `
 
-const RecipeTable = ({ ingredients }) => {
+const RecipeTable = ({ ingredients, recipeId }) => {
   const [scale, setScaleNumber] = useState(1)
 
   return (
     <IngredientTableWrapper>
-      <div className="scale-wrapper">
-        <label htmlFor="scale">
-          Scale Recipe:
-          <input
-            type="text"
-            name="scale"
-            placeholder="1"
-            value={scale}
-            onChange={val => {
-              const number = parseFloat(val.currentTarget.value)
-                ? parseFloat(val.currentTarget.value)
-                : 0
-              setScaleNumber(number)
-            }}
-          />
-        </label>
-      </div>
+      <IngredientContext.Provider ingredients={ingredients}>
+        <div className="scale-wrapper">
+          <label htmlFor="scale">
+            Scale Recipe:
+            <input
+              type="text"
+              name="scale"
+              placeholder="1"
+              value={scale}
+              onChange={val => {
+                const number = parseFloat(val.currentTarget.value)
+                  ? parseFloat(val.currentTarget.value)
+                  : 0
+                setScaleNumber(number)
+              }}
+            />
+          </label>
+        </div>
 
-      <div className="ingredient-table-heading">
-        <span className="ingredient-column">Amount</span>
-        <span className="ingredient-column">Measurement</span>
-        <span className="ingredient-column">Name</span>
-      </div>
-      {ingredients.map(ingredient => (
-        <Ingredient {...ingredient} scale={scale} />
-      ))}
+        <div className="ingredient-table-heading">
+          <span className="ingredient-column">Amount</span>
+          <span className="ingredient-column">Measurement</span>
+          <span className="ingredient-column">Name</span>
+        </div>
+        {ingredients.map(ingredient => (
+          <Ingredient {...ingredient} scale={scale} />
+        ))}
+        <button>Save Changes</button>
+      </IngredientContext.Provider>
     </IngredientTableWrapper>
   )
 }

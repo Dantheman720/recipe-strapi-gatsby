@@ -39,6 +39,7 @@ export default ({ pageContext }) => {
         <h2>Ingredients</h2>
         <RecipeTable
           ingredients={ingredientsWithKeys(pageContext.ingredients)}
+          recipeId={pageContext.strapiId}
         />
         <p className="recipe-description">{pageContext.description}</p>
       </RecipePageWrapper>
