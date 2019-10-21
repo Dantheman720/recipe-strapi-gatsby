@@ -1,86 +1,59 @@
 import React from "react"
-import { Card } from "antd"
 import styled from "styled-components"
-import { Link, useStaticQuery } from "gatsby"
-import { Row, Col } from "antd"
+import { useStaticQuery } from "gatsby"
+import FeaturedRecipeCard from "./FeaturedRecipeCard"
 
 const FeaturedRecipeWrapper = styled.div`
+  grid-column: 2;
   h1 {
     text-align: center;
+    margin: 3rem 0;
+  }
+  .recipe-card-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
   }
 `
-const { Meta } = Card
-const FeaturedRecipes = () => {
-  const { allStrapiRecipe } = useStaticQuery(graphql`
-    query GET_ALL_RECIPES {
-      allStrapiRecipe(limit: 4, sort: { fields: createdAt, order: ASC }) {
-        edges {
-          node {
-            description
-            recipename
-            excerpt
-            ingredients {
-              amount
-              measurement
-              name
-            }
-            id
-            strapiId
-            slug
-            picture {
-              childImageSharp {
-                fixed {
-                  src
-                }
+const GET_ALL_RECIPES = graphql`
+  query GET_ALL_RECIPES {
+    allStrapiRecipe(limit: 4, sort: { fields: createdAt, order: ASC }) {
+      edges {
+        node {
+          description
+          recipename
+          excerpt
+          ingredients {
+            amount
+            measurement
+            name
+          }
+          id
+          strapiId
+          slug
+          picture {
+            childImageSharp {
+              fixed(height: 300, width: 300) {
+                src
               }
             }
-            createdAt(formatString: "MM/DD/YYYY")
           }
+          createdAt(formatString: "MM/DD/YYYY")
         }
       }
     }
-  `)
-
+  }
+`
+const FeaturedRecipes = () => {
+  const { allStrapiRecipe } = useStaticQuery(GET_ALL_RECIPES)
   return (
     <FeaturedRecipeWrapper>
       <h1>Latest Tasty Treats!</h1>
-      <div className="featured-recipe-wrapper">
-        <Row gutter={16}>
-          <Col span={4} />
-
-          {allStrapiRecipe.edges.map(edge => (
-            <Col
-              span={4}
-              style={{
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
-              <Link to={`/${edge.node.slug}`}>
-                <Card
-                  style={{ width: 240, height: "350px" }}
-                  hoverable={true}
-                  cover={
-                    <img
-                      alt="example"
-                      src={
-                        edge.node.picture
-                          ? edge.node.picture.childImageSharp.fixed.src
-                          : ""
-                      }
-                      style={{ height: "200px" }}
-                    />
-                  }
-                >
-                  <Meta
-                    title={edge.node.recipename}
-                    description={edge.node.excerpt}
-                  />
-                </Card>
-              </Link>
-            </Col>
-          ))}
-        </Row>
+      <div className="recipe-card-wrapper">
+        {allStrapiRecipe.edges.map(edge => (
+          <FeaturedRecipeCard {...edge.node} />
+        ))}
       </div>
     </FeaturedRecipeWrapper>
   )

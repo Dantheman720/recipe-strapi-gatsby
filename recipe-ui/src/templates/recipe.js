@@ -1,8 +1,7 @@
 import React from "react"
 import Layout from "../components/layout"
-import { Row, Col } from "antd"
-import IngredientTable from "../components/IngredientTable"
 import RecipeTable from "../components/RecipeTable"
+import styled from "styled-components"
 
 function ingredientsWithKeys(ingredients) {
   let counter = 0
@@ -11,56 +10,38 @@ function ingredientsWithKeys(ingredients) {
     ...ingredient,
   }))
 }
-
+const RecipePageWrapper = styled.div`
+  grid-column: 2;
+  display: flex;
+  flex-direction: column;
+  font-size: 1rem;
+  .recipe-description {
+    padding: 2rem;
+  }
+  h1 {
+    text-align: center;
+    margin: 2rem 0;
+  }
+  h2 {
+    text-align: center;
+    margin: 2rem 0;
+  }
+  img {
+    margin: auto;
+  }
+`
 export default ({ pageContext }) => {
   return (
     <Layout>
-      <Row>
-        <Col style={{ textAlign: "center" }}>
-          <h1>{pageContext.recipename}</h1>
-        </Col>
-      </Row>
-      <Row>
-        <Col
-          style={{
-            justifyContent: "center",
-            alignContent: "center",
-            display: "flex",
-          }}
-        >
-          <img src={pageContext.picture.childImageSharp.fixed.src} alt="" />
-        </Col>
-        <Row style={{ textAlign: "center" }}>
-          <h2>Ingredients</h2>
-        </Row>
-      </Row>
-      <Row
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          textAlign: "center",
-          alignItems: "center",
-        }}
-      >
-        <Col span={12}>
-          <IngredientTable
-            ingredients={ingredientsWithKeys(pageContext.ingredients)}
-          />
-        </Col>
-      </Row>
-      <Row>
-        <Col offset={4} span={16}>
-          <RecipeTable
-            ingredients={ingredientsWithKeys(pageContext.ingredients)}
-          />
-        </Col>
-      </Row>
-      <Row>
-        <Col offset={4} span={16}>
-          <p>{pageContext.description}</p>
-        </Col>
-      </Row>
+      <RecipePageWrapper>
+        <h1>{pageContext.recipename}</h1>
+        <img src={pageContext.picture.childImageSharp.fixed.src} alt="" />
+        <h2>Ingredients</h2>
+        <RecipeTable
+          ingredients={ingredientsWithKeys(pageContext.ingredients)}
+        />
+        <p className="recipe-description">{pageContext.description}</p>
+      </RecipePageWrapper>
     </Layout>
   )
 }

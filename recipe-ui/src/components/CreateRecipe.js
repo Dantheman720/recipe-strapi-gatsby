@@ -66,7 +66,6 @@ const IngredientTableWrapper = styled.div`
 
 const IngredientForm = () => {
   const [createRecipe] = useMutation(CREATE_RECIPE_MUTATION)
-  // const [upload] = useMutation(CREATE_RECIPE_MUTATION)
 
   return (
     <div>
