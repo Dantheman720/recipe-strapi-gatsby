@@ -1,11 +1,12 @@
-import React, { useState } from "react"
+import React, { useContext, useState } from "react"
 import styled from "styled-components"
+import { IngredientsContext } from "../templates/recipe"
 
 const IngredientWrapper = styled.div`
   .ingredient-table-item {
     list-style: none;
     display: grid;
-    grid-template-columns: repeat(3, 1fr) 100px;
+    grid-template-columns: repeat(3, 1fr) 200px;
     width: 100%;
     padding: 0;
     margin: 0;
@@ -19,42 +20,82 @@ const IngredientWrapper = styled.div`
   .ingredient-column-input {
     font-size: 1rem;
     padding: 0.5rem 0 0.5rem 1rem;
+    &.buttons {
+      display: flex;
+      flex-direction: row;
+    }
   }
-  
-  button {
-        display: block;
-        border: 1px solid rgb(28,184,65);
-        color: #fff;
-          background-color: rgb(28,184,65);
-        //padding: 1rem 2rem;
-        text-decoration: none;
-        font-family: sans-serif;
-        font-size: 1rem;
-        cursor: pointer;
-        text-align: center;
-        transition: background 250ms ease-in-out, transform 150ms ease;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        //width: 125px;
-        border-radius: 5px;
-        &:hover {
-          background-color: rgb(21,131,50);
-          color: #fff;
 
+  button {
+    display: block;
+    color: #fff;
+    background-color: #5bc0de;
+    border: 1px solid #46b8da;
+    //padding: 1rem 2rem;
+    text-decoration: none;
+    font-family: sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
+    transition: background 250ms ease-in-out, transform 150ms ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    //width: 125px;
+    border-radius: 5px;
+    margin: auto;
+    &.remove-ingredient {
+      background-color: #d9534f;
+      border: 1px solid #d43f3a;
+      &:hover {
+        background-color: #c9302c;
+        border: 1px solid #ac2925;
+      }
+    }
+    &:hover {
+      background-color: #31b0d5;
+      border: 1px solid #269abc;
+      color: #fff;
+    }
   }
 `
+const updatedList = (
+  iterable,
+  ingredientId,
+  ingredientAmount,
+  ingredientMeasurement,
+  ingredientName
+) => {
+  return iterable.map(item => {
+    if (item.key !== ingredientId) return item
+    return {
+      key: ingredientId,
+      amount: ingredientAmount,
+      measurement: ingredientMeasurement,
+      name: ingredientName,
+    }
+  })
+}
 
-const Ingredient = ({ amount, scale, measurement, name }) => {
+const Ingredient = ({ amount, scale, measurement, ingredientId, name }) => {
   const [ingredientAmount, setIngredientAmount] = useState(amount * scale)
   const [ingredientName, setIngredientName] = useState(name)
   const [ingredientMeasurement, setIngredientMeasurement] = useState(
     measurement
   )
   const [isHidden, setIsHidden] = useState(true)
+  const [isSetToRemove, setIsSetToRemove] = useState(false)
+  const IngredientList = useContext(IngredientsContext)
   return (
     <IngredientWrapper>
       <div className="ingredient-table-item">
-        <span className="ingredient-column-input">
+        <span
+          className="ingredient-column-input"
+          style={
+            isSetToRemove === true
+              ? { textDecoration: "line-through" }
+              : { textDecoration: "none" }
+          }
+        >
           {isHidden && ingredientAmount * scale}
           <input
             style={
@@ -65,7 +106,14 @@ const Ingredient = ({ amount, scale, measurement, name }) => {
             onChange={e => setIngredientAmount(e.target.value)}
           />
         </span>
-        <span className="ingredient-column-input">
+        <span
+          className="ingredient-column-input"
+          style={
+            isSetToRemove === true
+              ? { textDecoration: "line-through" }
+              : { textDecoration: "none" }
+          }
+        >
           {isHidden && ingredientMeasurement}
           <input
             style={
@@ -76,7 +124,14 @@ const Ingredient = ({ amount, scale, measurement, name }) => {
             onChange={e => setIngredientMeasurement(e.target.value)}
           />
         </span>
-        <span className="ingredient-column-input">
+        <span
+          className="ingredient-column-input"
+          style={
+            isSetToRemove === true
+              ? { textDecoration: "line-through" }
+              : { textDecoration: "none" }
+          }
+        >
           {isHidden && ingredientName}
           <input
             style={
@@ -87,8 +142,45 @@ const Ingredient = ({ amount, scale, measurement, name }) => {
             onChange={e => setIngredientName(e.target.value)}
           />
         </span>
-        <span className="ingredient-column-input">
-          <button onClick={() => setIsHidden(!isHidden)}>Edit</button>
+        <span className="ingredient-column-input buttons">
+          <button
+            className="remove-ingredient"
+            onClick={() => {
+              const updated = IngredientList.ingredients.filter(
+                ({ key }) => key !== ingredientId
+              )
+              setIsSetToRemove(true)
+              IngredientList.ingredients = updated
+            }}
+          >
+            Remove
+          </button>
+          <button
+            style={
+              isHidden === true ? { display: "block" } : { display: "none" }
+            }
+            onClick={() => setIsHidden(false)}
+          >
+            Edit
+          </button>
+          <button
+            style={
+              isHidden === true ? { display: "none" } : { display: "block" }
+            }
+            onClick={() => {
+              const updated = updatedList(
+                IngredientList.ingredients,
+                ingredientId,
+                ingredientAmount,
+                ingredientMeasurement,
+                ingredientName
+              )
+              setIsHidden(true)
+              IngredientList.ingredients = updated
+            }}
+          >
+            Save
+          </button>
         </span>
       </div>
     </IngredientWrapper>

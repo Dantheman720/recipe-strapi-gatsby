@@ -2,6 +2,7 @@ import React from "react"
 import Layout from "../components/layout"
 import RecipeTable from "../components/RecipeTable"
 import styled from "styled-components"
+import Header from "../components/Header"
 
 function ingredientsWithKeys(ingredients) {
   let counter = 0
@@ -30,17 +31,21 @@ const RecipePageWrapper = styled.div`
     margin: auto;
   }
 `
+export const IngredientsContext = React.createContext({})
+
 export default ({ pageContext }) => {
   return (
     <Layout>
+      <Header />
       <RecipePageWrapper>
         <h1>{pageContext.recipename}</h1>
         <img src={pageContext.picture.childImageSharp.fixed.src} alt="" />
         <h2>Ingredients</h2>
-        <RecipeTable
-          ingredients={ingredientsWithKeys(pageContext.ingredients)}
-          recipeId={pageContext.strapiId}
-        />
+        <IngredientsContext.Provider
+          value={{ ingredients: ingredientsWithKeys(pageContext.ingredients) }}
+        >
+          <RecipeTable recipeId={pageContext.strapiId} />
+        </IngredientsContext.Provider>
         <p className="recipe-description">{pageContext.description}</p>
       </RecipePageWrapper>
     </Layout>
