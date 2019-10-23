@@ -9,4 +9,5 @@
 /recipe-ui/node_modules
 /recipe-ui/public
 /backend/
-/node_modulesd
+/node_modules/
+/package-lock.json
