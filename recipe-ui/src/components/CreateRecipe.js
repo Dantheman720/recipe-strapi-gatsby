@@ -41,32 +41,73 @@ const CreateRecipeSchema = Yup.object().shape({
   ingredients: Yup.array().required("Required"),
 })
 
-const CreateRecipeFormWrapper = styled.div`
-  input,
-  textarea {
-    margin: 10px 0;
-  }
-
-  label {
-    font-weight: 700;
-  }
-`
-
 const IngredientWrapper = styled.div`
   display: flex;
   flex-direction: column;
 `
 
 const IngredientTableWrapper = styled.div`
-  input,
+  display: grid;
+  grid-template-columns: 50px 100px 1fr 75px;
+  margin: 5px auto;
+  .modify-ingredient-button {
+    display: flex;
+    flex-direction: row;
+  }
   button {
-    margin: 10px 0;
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    font-family: sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
+    transition: background 250ms ease-in-out, transform 150ms ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border-radius: 10px;
+    margin: auto;
+    width: 30px;
+    &.remove-ingredient-row {
+      background-color: #d9534f;
+      border: 1px solid #d43f3a;
+      &:hover {
+        background-color: #c9302c;
+        border: 1px solid #ac2925;
+      }
+    }
+    &.add-ingredient-row {
+      background-color: rgb(28, 184, 65);
+      border: 1px solid rgb(28, 184, 65);
+      &:hover {
+        background-color: rgb(21, 131, 50);
+        border: 1px solid rgb(21, 131, 50);
+      }
+    }
   }
 `
 
 const CreateRecipeWrapper = styled.div`
   max-width: 75%;
   margin: auto;
+`
+
+const RecipeFormWrapper = styled.div`
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .recipe-inputs,
+  .ingredient-field-items {
+    //width: 75%;
+    font-size: 1rem;
+    letter-spacing: 0.1rem;
+    outline: none;
+    border: 0.1rem solid #adadad;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
 `
 
 const CreateRecipe = () => (
@@ -81,7 +122,12 @@ const InputComponent = ({
   ...props
 }) => (
   <>
-    <input type="text" {...field} {...props} />
+    <input
+      type="text"
+      className="ingredient-field-items"
+      {...field}
+      {...props}
+    />
     {touched[field.name] && errors[field.name] && (
       <div className="error">{errors[field.name]}</div>
     )}
@@ -91,7 +137,7 @@ const InputComponent = ({
 export default CreateRecipe
 
 const RecipeForm = () => (
-  <div>
+  <RecipeFormWrapper>
     <Formik
       onSubmit={(values, actions) => {
         setTimeout(() => {
@@ -108,6 +154,7 @@ const RecipeForm = () => (
             render={({ field /* { name, value, onChange, onBlur } */ }) => (
               <input
                 {...field}
+                className="recipe-inputs"
                 type="text"
                 placeholder="Eggs, bacon and toast!"
               />
@@ -120,6 +167,7 @@ const RecipeForm = () => (
             render={({ field /* { name, value, onChange, onBlur } */ }) => (
               <input
                 {...field}
+                className="recipe-inputs"
                 type="text"
                 placeholder="Why don't you start your day the Gergich way...."
               />
@@ -133,6 +181,7 @@ const RecipeForm = () => (
               <textarea
                 {...field}
                 type="text"
+                className="recipe-inputs"
                 autosize={{ minRows: 10, maxRows: 20 }}
                 placeholder="Eggs, bacon and toast. Eggs, bacon and toast. Why don’t you start your day the Girgich way with eggs, bacon and…"
               />
@@ -145,6 +194,7 @@ const RecipeForm = () => (
             render={({ field /* { name, value, onChange, onBlur } */ }) => (
               <input
                 type="file"
+                className="recipe-inputs"
                 {...field}
                 onChange={e => {
                   const file = e.target.files[0]
@@ -177,18 +227,22 @@ const RecipeForm = () => (
                         component={InputComponent}
                         placeholder="Powdered Eggs"
                       />
-                      <button
-                        type="button"
-                        onClick={() => arrayHelpers.remove(index)} // remove a friend from the list
-                      >
-                        -
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => arrayHelpers.push("")} // insert an empty string at a position
-                      >
-                        +
-                      </button>
+                      <div className="modify-ingredient-button">
+                        <button
+                          type="button"
+                          className="remove-ingredient-row"
+                          onClick={() => arrayHelpers.remove(index)} // remove a friend from the list
+                        >
+                          -
+                        </button>
+                        <button
+                          type="button"
+                          className="add-ingredient-row"
+                          onClick={() => arrayHelpers.push("")} // insert an empty string at a position
+                        >
+                          +
+                        </button>
+                      </div>
                     </IngredientTableWrapper>
                   ))
                 ) : (
@@ -216,5 +270,5 @@ const RecipeForm = () => (
         </form>
       )}
     />
-  </div>
+  </RecipeFormWrapper>
 )
