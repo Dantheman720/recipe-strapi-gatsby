@@ -41,6 +41,7 @@ const RecipeSearchQueryWrapper = styled.div`
     transition: background-color 0.3s;
     margin: 3rem auto;
   }
+
   .search-icon {
     position: absolute;
     top: 72px;
