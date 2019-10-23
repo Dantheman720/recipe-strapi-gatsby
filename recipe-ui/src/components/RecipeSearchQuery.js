@@ -69,7 +69,7 @@ const RecipeSearchQuery = () => {
         </span>
       </div>
 
-      {!loading && !error && <RecipeList results={data} />}
+      {!error && data && <RecipeList results={data} />}
     </RecipeSearchQueryWrapper>
   )
 }

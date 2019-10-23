@@ -2,24 +2,28 @@ import React from "react"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import { Row } from "antd"
 import styled from "styled-components"
 import CreateRecipe from "../components/CreateRecipe"
+import Header from "../components/Header"
 
 const CreateRecipeWrapper = styled.div`
+  grid-column: 2;
+  h1 {
+    text-align: center;
+    margin-top: 3rem;
+  }
   label {
     display: block;
   }
-  justify-content: center;
+  //justify-content: center;
 `
 
 const RecipeCreation = () => (
   <Layout>
     <SEO title="Create Recipes" />
+    <Header />
     <CreateRecipeWrapper>
-      <Row style={{ textAlign: "center" }}>
-        <h1 className="create-recipe-heading">Create New Recipe</h1>
-      </Row>
+      <h1 className="create-recipe-heading">Create New Recipe</h1>
       <CreateRecipe />
     </CreateRecipeWrapper>
   </Layout>

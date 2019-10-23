@@ -15,7 +15,8 @@ const FeaturedRecipeCardWrapper = styled.div`
     margin: 0 1rem 1rem 1rem;
   }
   a,
-  a:visited {
+  a:visited,
+  a:hover {
     color: inherit;
     text-decoration: none;
   }

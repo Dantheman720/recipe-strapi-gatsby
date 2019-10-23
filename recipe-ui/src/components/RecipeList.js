@@ -6,6 +6,7 @@ const RecipeList = props => (
     {props.results.recipeByName.map(result => (
       <RecipeItem {...result} />
     ))}
+    {/*<pre>{JSON.stringify(props, undefined, 2)}</pre>*/}
   </div>
 )
 
