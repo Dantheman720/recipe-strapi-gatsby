@@ -173,11 +173,12 @@ const RecipeForm = () => {
   return (
     <RecipeFormWrapper>
       <Formik
+        validationSchema={CreateRecipeSchema}
         initialValues={{
           recipename: "",
           excerpt: "",
           description: "",
-          picture: null,
+          picture: undefined,
           ingredients: [{ amount: "", measurement: "", name: "" }],
         }}
         onSubmit={async e => {
@@ -323,9 +324,6 @@ const RecipeForm = () => {
                   <IngredientWrapper>
                     <button type="submit">Submit</button>
                   </IngredientWrapper>
-                  {errors && Object.entries(touched).length > 0 && (
-                    <div>Fill out the form!</div>
-                  )}
                 </>
               )}
             />

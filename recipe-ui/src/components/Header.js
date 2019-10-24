@@ -1,6 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import { Link } from "gatsby"
+import Login from "./Login"
 
 const HeaderWrapper = styled.div`
   grid-column: 1 / -1;
@@ -34,6 +35,7 @@ const Header = () => (
       <Link to="/recipe-search">
         <span>Search</span>
       </Link>
+      <Login />
     </div>
   </HeaderWrapper>
 )
