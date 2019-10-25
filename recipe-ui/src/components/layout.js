@@ -9,7 +9,6 @@ import React from "react"
 import "./layout.css"
 import PropTypes from "prop-types"
 
-import { Link } from "gatsby"
 import styled, { ThemeProvider, createGlobalStyle } from "styled-components"
 
 const theme = {
