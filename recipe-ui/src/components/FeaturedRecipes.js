@@ -18,7 +18,7 @@ const FeaturedRecipeWrapper = styled.div`
 `
 const GET_ALL_RECIPES = graphql`
   query GET_ALL_RECIPES {
-    allStrapiRecipe(limit: 4, sort: { fields: createdAt, order: ASC }) {
+    allStrapiRecipe(limit: 3, sort: { fields: createdAt, order: DESC }) {
       edges {
         node {
           description

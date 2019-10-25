@@ -2,11 +2,11 @@ import React from "react"
 import { useMutation } from "@apollo/react-hooks"
 import { Formik, Form, Field, FieldArray } from "formik"
 import styled from "styled-components"
-import gql from "graphql-tag"
 import { localConfig } from "../config"
-import * as Yup from "yup"
 import InputComponent from "./InputComponent"
 import { CREATE_RECIPE_MUTATION } from "../mutations/createMutations"
+import { CreateRecipeSchema } from "../validation/recipeValidationSchema"
+import { FaPlusCircle } from "react-icons/fa"
 
 const RecipeFormWrapper = styled.div`
   form {
@@ -101,12 +101,6 @@ const IngredientWrapper = styled.div`
     }
   }
 `
-const CreateRecipeSchema = Yup.object().shape({
-  recipename: Yup.string().required("Required"),
-  excerpt: Yup.string().required("Required"),
-  description: Yup.string().required("Required"),
-  ingredients: Yup.array().required("Required"),
-})
 
 const RecipeForm = () => {
   const [createRecipe] = useMutation(CREATE_RECIPE_MUTATION)
@@ -255,12 +249,13 @@ const RecipeForm = () => {
                         type="plus-circle"
                         style={{
                           fontSize: "42px",
-                          color: "green",
+                          color: "rgb(28, 184, 65)",
                           margin: "auto",
+                          cursor: "pointer",
                         }}
                         onClick={() => arrayHelpers.push("")}
                       >
-                        Click!
+                        <FaPlusCircle />
                       </span>
                     </IngredientWrapper>
                   )}
