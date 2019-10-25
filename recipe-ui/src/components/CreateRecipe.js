@@ -1,12 +1,10 @@
 import React from "react"
 import { useMutation } from "@apollo/react-hooks"
 import { Formik, Form, Field, FieldArray } from "formik"
-import { Col, Row, Input, Button, Icon, Upload } from "antd"
 import styled from "styled-components"
 import gql from "graphql-tag"
 import { localConfig } from "../config"
 import * as Yup from "yup"
-const { TextArea } = Input
 
 const CREATE_RECIPE_MUTATION = gql`
   mutation CREATE_RECIPE_MUTATION(
@@ -310,7 +308,7 @@ const RecipeForm = () => {
                     ))
                   ) : (
                     <IngredientWrapper>
-                      <Icon
+                      <span
                         type="plus-circle"
                         style={{
                           fontSize: "42px",
@@ -318,7 +316,9 @@ const RecipeForm = () => {
                           margin: "auto",
                         }}
                         onClick={() => arrayHelpers.push("")}
-                      />
+                      >
+                        Click!
+                      </span>
                     </IngredientWrapper>
                   )}
                   <IngredientWrapper>

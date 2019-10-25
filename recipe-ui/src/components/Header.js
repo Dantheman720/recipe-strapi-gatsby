@@ -8,6 +8,11 @@ const HeaderWrapper = styled.div`
   background-color: ${props => props.theme.charcoalMainColor};
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
+  align-content: center;
+  a,
+  a:hover {
+    text-decoration: none;
+  }
   .header-center {
     grid-column: 2;
     display: flex;

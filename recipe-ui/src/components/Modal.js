@@ -103,7 +103,6 @@ const Modal = ({ hide, username }) => {
             initialValues={{ username: "", password: "" }}
             onSubmit={(values, actions) => {
               setTimeout(() => {
-                alert(JSON.stringify(values, null, 2))
                 axios
                   .post("http://localhost:1337/auth/local", {
                     identifier: values.username,
@@ -111,9 +110,6 @@ const Modal = ({ hide, username }) => {
                   })
                   .then(response => {
                     // Handle success.
-                    console.log("Well done!")
-                    console.log("User profile", response.data.user)
-                    console.log("User token", response.data.jwt)
                     localStorage.setItem("token", response.data.jwt)
                     localStorage.setItem(
                       "username",

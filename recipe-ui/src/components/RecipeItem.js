@@ -14,6 +14,8 @@ const RecipeItemWrapper = styled.div`
   grid-template-columns: 300px auto;
   width: 75%;
   box-shadow: 0.2rem 0.2rem 1rem ${props => props.theme.greyBoxShadow};
+  a {
+  }
 
   img {
     width: 300px;
@@ -39,45 +41,4 @@ const RecipeItem = ({ recipename, excerpt, slug, picture }) => (
   </Link>
 )
 
-// const RecipeItem = props => {
-//   const { recipename, excerpt, slug, picture } = props
-//
-//   return (
-//     <RecipeItemWrapper>
-//       <Link to={slug} style={{ color: "inherit" }}>
-//         <Row style={{ boxShadow: "0.2rem 0.2rem 1rem #777" }}>
-//           <Col
-//             span={6}
-//             style={{
-//               height: "300px",
-//               width: "300px",
-//               margin: "10px",
-//             }}
-//           >
-//             {picture && (
-//               <img
-//                 src={`${localConfig.url}${picture.url}`}
-//                 alt="Fully cooked meal!"
-//                 style={{ height: "100%", width: "100%" }}
-//               />
-//             )}
-//           </Col>
-//           <Col
-//             span={18}
-//             style={{
-//               height: "300px",
-//               width: "600px",
-//               margin: "10px",
-//             }}
-//           >
-//             <CardDescWrapper>
-//               <h1>{recipename}</h1>
-//               <p>{excerpt}</p>
-//             </CardDescWrapper>
-//           </Col>
-//         </Row>
-//       </Link>
-//     </RecipeItemWrapper>
-//   )
-// }
 export default RecipeItem

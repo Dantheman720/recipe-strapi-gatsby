@@ -4,7 +4,7 @@ import RecipeItem from "./RecipeItem"
 const RecipeList = props => (
   <div>
     {props.results.recipeByName.map(result => (
-      <RecipeItem {...result} />
+      <RecipeItem {...result} key={result.slug} />
     ))}
   </div>
 )
