@@ -6,13 +6,13 @@
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
     "@apollo/react-hooks": "^3.1.1",
-    "antd": "^3.23.2",
     "apollo-boost": "^0.4.4",
     "apollo-client": "^2.6.4",
+    "axios": "^0.19.0",
     "babel-plugin-styled-components": "^1.10.6",
+    "formik": "^1.5.8",
     "gatsby": "^2.15.11",
     "gatsby-image": "^2.2.17",
-    "gatsby-plugin-antd": "^2.0.2",
     "gatsby-plugin-manifest": "^2.2.15",
     "gatsby-plugin-offline": "^2.2.10",
     "gatsby-plugin-react-helmet": "^3.1.6",
@@ -31,7 +31,9 @@
     "react-apollo": "^3.0.1",
     "react-dom": "^16.9.0",
     "react-helmet": "^5.2.1",
-    "styled-components": "^4.3.2"
+    "react-icons": "^3.7.0",
+    "styled-components": "^4.3.2",
+    "yup": "^0.27.0"
   },
   "devDependencies": {
     "prettier": "^1.18.2"

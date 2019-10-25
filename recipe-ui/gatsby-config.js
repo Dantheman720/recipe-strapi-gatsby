@@ -22,7 +22,8 @@ module.exports = {
         fieldName: "strapi",
         // Url to query from
         url: "http://localhost:1337/graphql",
-      }},
+      },
+    },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {
@@ -38,7 +39,6 @@ module.exports = {
         },
       },
     },
-    `gatsby-plugin-antd`,
     `gatsby-plugin-styled-components`,
 
     {

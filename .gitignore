@@ -8,5 +8,6 @@
 /recipe-ui/.cache/
 /recipe-ui/node_modules
 /recipe-ui/public
-/recipe-ui/package-lock.json
 /backend/
+/node_modules/
+/package-lock.json

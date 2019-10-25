@@ -1,8 +1,11 @@
 import React from "react"
+import RecipeItem from "./RecipeItem"
 
 const RecipeList = props => (
   <div>
-    <pre>{JSON.stringify(props, undefined, 2)}</pre>
+    {props.results.recipeByName.map(result => (
+      <RecipeItem {...result} key={result.slug} />
+    ))}
   </div>
 )
 
