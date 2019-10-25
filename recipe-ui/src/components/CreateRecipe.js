@@ -5,6 +5,7 @@ import styled from "styled-components"
 import gql from "graphql-tag"
 import { localConfig } from "../config"
 import * as Yup from "yup"
+import InputComponent from "./InputComponent"
 
 const CREATE_RECIPE_MUTATION = gql`
   mutation CREATE_RECIPE_MUTATION(
@@ -144,23 +145,6 @@ const CreateRecipe = () => (
   <CreateRecipeWrapper>
     <RecipeForm />
   </CreateRecipeWrapper>
-)
-const InputComponent = ({
-  field, // { name, value, onChange, onBlur }
-  form: { touched, errors }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
-  ...props
-}) => (
-  <>
-    <input
-      type="text"
-      className="ingredient-field-items"
-      {...field}
-      {...props}
-    />
-    {touched[field.name] && errors[field.name] && (
-      <div className="error">{errors[field.name]}</div>
-    )}
-  </>
 )
 
 export default CreateRecipe
