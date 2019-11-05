@@ -26,6 +26,7 @@ export const Button = styled.button`
     props.buttonPadding
       ? `padding: ${styleSpaced(props.buttonPadding, "px")}`
       : `padding: 0`};
+  ${props => (props.width ? `width: ${props.width}` : ``)};
   ${props =>
     props.primary &&
     `

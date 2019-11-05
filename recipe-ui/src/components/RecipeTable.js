@@ -1,24 +1,10 @@
 import React, { useContext, useState } from "react"
 import styled from "styled-components"
 import Ingredient from "./Ingredient"
-import gql from "graphql-tag"
 import { useMutation } from "@apollo/react-hooks"
 import { IngredientsContext } from "../templates/recipe"
 import { Button } from "./styles/customStyleComponents"
-import { FaPlusCircle } from "react-icons/fa"
-
-const MODIFY_RECIPE_ENVIRONMENT = gql`
-  mutation MODIFY_RECIPE_ENVIRONMENT($ingredients: JSON!, $recipeId: ID!) {
-    updateRecipe(
-      input: { where: { id: $recipeId }, data: { ingredients: $ingredients } }
-    ) {
-      recipe {
-        id
-        recipename
-      }
-    }
-  }
-`
+import { MODIFY_RECIPE_ENVIRONMENT } from "../mutations/createMutations"
 
 const IngredientTableWrapper = styled.div`
   display: flex;

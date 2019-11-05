@@ -40,7 +40,7 @@ const RecipeSearchQueryWrapper = styled.div`
 
 const RecipeSearchQuery = () => {
   const [searchTerm, setSearchTerm] = useState("")
-  const { loading, error, data } = useQuery(GET_RECIPES, {
+  const { error, data } = useQuery(GET_RECIPES, {
     variables: { name: `${searchTerm}` },
   })
   return (
