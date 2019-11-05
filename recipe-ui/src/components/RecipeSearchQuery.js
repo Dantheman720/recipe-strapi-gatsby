@@ -1,22 +1,9 @@
 import React, { useState } from "react"
 import styled from "styled-components"
 import { useQuery } from "@apollo/react-hooks"
-import gql from "graphql-tag"
 import { FaSearch } from "react-icons/fa"
 import RecipeList from "./RecipeList"
-
-const GET_RECIPES = gql`
-  query GET_RECIPES($name: String!) {
-    recipeByName(where: { name: $name }) {
-      recipename
-      excerpt
-      slug
-      picture {
-        url
-      }
-    }
-  }
-`
+import { GET_RECIPES } from "../queries/queries"
 
 const RecipeSearchQueryWrapper = styled.div`
   grid-column: 2;

@@ -4,6 +4,8 @@ import Ingredient from "./Ingredient"
 import gql from "graphql-tag"
 import { useMutation } from "@apollo/react-hooks"
 import { IngredientsContext } from "../templates/recipe"
+import { Button } from "./styles/customStyleComponents"
+import { FaPlusCircle } from "react-icons/fa"
 
 const MODIFY_RECIPE_ENVIRONMENT = gql`
   mutation MODIFY_RECIPE_ENVIRONMENT($ingredients: JSON!, $recipeId: ID!) {
@@ -58,27 +60,6 @@ const IngredientTableWrapper = styled.div`
       margin: 0 1rem;
     }
   }
-  .save-recipe-edits {
-    display: block;
-    border: 1px solid rgb(28, 184, 65);
-    color: #fff;
-    margin: 2rem 5rem;
-    padding: 10px;
-    background-color: rgb(28, 184, 65);
-    text-decoration: none;
-    font-family: sans-serif;
-    font-size: 1rem;
-    cursor: pointer;
-    text-align: center;
-    transition: background 250ms ease-in-out, transform 150ms ease;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    border-radius: 5px;
-    &:hover {
-      background-color: rgb(21, 131, 50);
-      color: #fff;
-    }
-  }
 `
 
 const RecipeTable = ({ recipeId }) => {
@@ -117,8 +98,11 @@ const RecipeTable = ({ recipeId }) => {
           ingredientId={ingredient.key}
         />
       ))}
-      <button
-        className="save-recipe-edits"
+      <Button
+        primary
+        fontSize={1.2}
+        buttonMargin={[2, 5]}
+        buttonPadding={[10]}
         onClick={() => {
           updateRecipe({
             variables: {
@@ -129,7 +113,7 @@ const RecipeTable = ({ recipeId }) => {
         }}
       >
         Save Changes
-      </button>
+      </Button>
     </IngredientTableWrapper>
   )
 }

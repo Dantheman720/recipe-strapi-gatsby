@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react"
 import styled from "styled-components"
 import { IngredientsContext } from "../templates/recipe"
+import { Button } from "./styles/customStyleComponents"
 
 const IngredientWrapper = styled.div`
   .ingredient-table-item {
@@ -23,38 +24,6 @@ const IngredientWrapper = styled.div`
     &.buttons {
       display: flex;
       flex-direction: row;
-    }
-  }
-
-  button {
-    display: block;
-    color: #fff;
-    background-color: #5bc0de;
-    border: 1px solid #46b8da;
-    //padding: 1rem 2rem;
-    text-decoration: none;
-    font-family: sans-serif;
-    font-size: 1rem;
-    cursor: pointer;
-    text-align: center;
-    transition: background 250ms ease-in-out, transform 150ms ease;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    //width: 125px;
-    border-radius: 5px;
-    margin: auto;
-    &.remove-ingredient {
-      background-color: #d9534f;
-      border: 1px solid #d43f3a;
-      &:hover {
-        background-color: #c9302c;
-        border: 1px solid #ac2925;
-      }
-    }
-    &:hover {
-      background-color: #31b0d5;
-      border: 1px solid #269abc;
-      color: #fff;
     }
   }
 `
@@ -143,7 +112,9 @@ const Ingredient = ({ amount, scale, measurement, ingredientId, name }) => {
           />
         </span>
         <span className="ingredient-column-input buttons">
-          <button
+          <Button
+            red
+            buttonPadding={[3, 5]}
             className="remove-ingredient"
             onClick={() => {
               const updated = IngredientList.ingredients.filter(
@@ -154,16 +125,20 @@ const Ingredient = ({ amount, scale, measurement, ingredientId, name }) => {
             }}
           >
             Remove
-          </button>
-          <button
+          </Button>
+          <Button
+            primary
+            buttonPadding={[3, 5]}
             style={
               isHidden === true ? { display: "block" } : { display: "none" }
             }
             onClick={() => setIsHidden(false)}
           >
             Edit
-          </button>
-          <button
+          </Button>
+          <Button
+            primary
+            buttonPadding={[3, 5]}
             style={
               isHidden === true ? { display: "none" } : { display: "block" }
             }
@@ -180,7 +155,7 @@ const Ingredient = ({ amount, scale, measurement, ingredientId, name }) => {
             }}
           >
             Save
-          </button>
+          </Button>
         </span>
       </div>
     </IngredientWrapper>
