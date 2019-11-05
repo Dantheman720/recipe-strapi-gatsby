@@ -7,6 +7,7 @@ import InputComponent from "./InputComponent"
 import { CREATE_RECIPE_MUTATION } from "../mutations/createMutations"
 import { CreateRecipeSchema } from "../validation/recipeValidationSchema"
 import { FaPlusCircle } from "react-icons/fa"
+import { Button } from "./styles/customStyleComponents"
 
 const RecipeFormWrapper = styled.div`
   form {
@@ -42,64 +43,10 @@ const IngredientTableWrapper = styled.div`
     display: flex;
     flex-direction: row;
   }
-  button {
-    display: block;
-    color: #fff;
-    text-decoration: none;
-    font-family: sans-serif;
-    font-size: 1rem;
-    cursor: pointer;
-    text-align: center;
-    transition: background 250ms ease-in-out, transform 150ms ease;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    border-radius: 10px;
-    margin: auto;
-    width: 30px;
-    &.remove-ingredient-row {
-      background-color: #d9534f;
-      border: 1px solid #d43f3a;
-      &:hover {
-        background-color: #c9302c;
-        border: 1px solid #ac2925;
-      }
-    }
-    &.add-ingredient-row {
-      background-color: rgb(28, 184, 65);
-      border: 1px solid rgb(28, 184, 65);
-      &:hover {
-        background-color: rgb(21, 131, 50);
-        border: 1px solid rgb(21, 131, 50);
-      }
-    }
-  }
 `
 const IngredientWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  button {
-    display: block;
-    color: #fff;
-    text-decoration: none;
-    font-family: sans-serif;
-    font-size: 1rem;
-    cursor: pointer;
-    text-align: center;
-    transition: background 250ms ease-in-out, transform 150ms ease;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    border-radius: 5px;
-    padding: 10px;
-    margin: auto;
-    width: 75%;
-    background-color: #007bff;
-    border: 1px solid #007bff;
-    margin: 2rem auto;
-    &:hover {
-      background-color: #0062cc;
-      border: 1px solid #005cbf;
-    }
-  }
 `
 
 const RecipeForm = () => {
@@ -220,16 +167,18 @@ const RecipeForm = () => {
                           placeholder="Powdered Eggs"
                         />
                         <div className="modify-ingredient-button">
-                          <button
+                          <Button
+                            red
+                            width="30px"
                             type="button"
-                            className="remove-ingredient-row"
                             onClick={() => arrayHelpers.remove(index)} // remove a friend from the list
                           >
                             -
-                          </button>
-                          <button
+                          </Button>
+                          <Button
+                            green
+                            width="30px"
                             type="button"
-                            className="add-ingredient-row"
                             onClick={() =>
                               arrayHelpers.push({
                                 amount: "",
@@ -239,7 +188,7 @@ const RecipeForm = () => {
                             } // insert an empty string at a position
                           >
                             +
-                          </button>
+                          </Button>
                         </div>
                       </IngredientTableWrapper>
                     ))
@@ -260,7 +209,15 @@ const RecipeForm = () => {
                     </IngredientWrapper>
                   )}
                   <IngredientWrapper>
-                    <button type="submit">Submit</button>
+                    <Button
+                      primary
+                      width="75%"
+                      type="submit"
+                      buttonPadding={[10]}
+                      style={{ margin: "2rem auto" }}
+                    >
+                      Submit
+                    </Button>
                   </IngredientWrapper>
                 </>
               )}

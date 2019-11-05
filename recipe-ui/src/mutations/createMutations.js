@@ -25,3 +25,16 @@ export const CREATE_RECIPE_MUTATION = gql`
     }
   }
 `
+
+export const MODIFY_RECIPE_ENVIRONMENT = gql`
+  mutation MODIFY_RECIPE_ENVIRONMENT($ingredients: JSON!, $recipeId: ID!) {
+    updateRecipe(
+      input: { where: { id: $recipeId }, data: { ingredients: $ingredients } }
+    ) {
+      recipe {
+        id
+        recipename
+      }
+    }
+  }
+`

@@ -51,16 +51,16 @@ const ModalWrapper = styled.section`
       }
       input {
         background-color: transparent;
-        box-sizing: border-box;
-        box-shadow: none;
-        max-width: 100%;
-        border-width: 1px;
-        border-style: solid;
-        border-image: initial;
         border-color: inherit;
+        border-image: initial;
         border-radius: 3px;
+        border-style: solid;
+        border-width: 1px;
+        box-shadow: none;
+        box-sizing: border-box;
         font: inherit;
         margin: 1rem;
+        max-width: 100%;
         padding: 10px;
         transition: border-color 0.2s ease 0s;
       }
@@ -162,34 +162,3 @@ const Modal = ({ hide, username }) => {
 }
 
 export default Modal
-
-const PlaceHolder = () => (
-  <div>
-    <input type="text" placeholder="Username" />
-    <input type="text" placeholder="Password" />
-    <span
-      onClick={e => {
-        axios
-          .post("http://localhost:1337/auth/local", {
-            identifier: "Dantheman",
-            password: "Hotpepper720",
-          })
-          .then(response => {
-            // Handle success.
-            console.log("Well done!")
-            console.log("User profile", response.data.user)
-            console.log("User token", response.data.jwt)
-            localStorage.setItem("token", response.data.jwt)
-            localStorage.setItem("username", response.data.user.username)
-            // setUserName(response.data.user.username)
-          })
-          .catch(error => {
-            // Handle error.
-            console.log("An error occurred:", error)
-          })
-      }}
-    >
-      Login
-    </span>
-  </div>
-)

@@ -35,6 +35,8 @@ const GlobalStyles = createGlobalStyle`
         scroll-behavior: smooth;
 
     }
+    
+    
 `
 
 const LayoutWrapper = styled.div`
