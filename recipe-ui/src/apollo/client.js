@@ -7,7 +7,7 @@ import fetch from "isomorphic-fetch"
 // })
 
 export const client = new ApolloClient({
-  uri: "http://localhost:1337/graphql",
+  uri: "http://159.203.74.177:1337/graphql",
   request: operation => {
     const token = localStorage.getItem("token")
     operation.setContext({

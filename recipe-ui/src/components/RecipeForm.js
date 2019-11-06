@@ -8,6 +8,7 @@ import { CREATE_RECIPE_MUTATION } from "../mutations/createMutations"
 import { CreateRecipeSchema } from "../validation/recipeValidationSchema"
 import { FaPlusCircle } from "react-icons/fa"
 import { Button } from "./styles/customStyleComponents"
+import axios from "axios"
 
 const RecipeFormWrapper = styled.div`
   form {
@@ -74,15 +75,15 @@ const RecipeForm = () => {
           data.append("ref", "recipe")
           data.append("refId", recipeId)
           data.append("field", "picture")
-
+          const token = localStorage.getItem("token")
           const res = await fetch(`${localConfig.url}/upload`, {
             method: "POST",
-            mode: "no-cors",
-            headers: {
-              "Content-Type": "image/*",
-            },
             body: data,
+            headers: {
+              Authorization: token ? `Bearer ${token}` : "",
+            },
           })
+          console.log(res)
         }}
         render={({ values, setFieldValue, errors, touched, handleChange }) => (
           <Form>
