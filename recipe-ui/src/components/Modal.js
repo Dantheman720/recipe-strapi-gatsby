@@ -2,6 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import axios from "axios"
 import { Formik } from "formik"
+import { localConfig } from "../config"
 
 const ModalWrapper = styled.section`
   display: grid;
@@ -104,7 +105,7 @@ const Modal = ({ hide, username }) => {
             onSubmit={(values, actions) => {
               setTimeout(() => {
                 axios
-                  .post("http://localhost:1337/auth/local", {
+                  .post(`${localConfig.url}/auth/local/`, {
                     identifier: values.username,
                     password: values.password,
                   })

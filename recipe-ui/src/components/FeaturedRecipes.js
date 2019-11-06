@@ -1,9 +1,38 @@
 import React from "react"
 import styled from "styled-components"
-import { useStaticQuery } from "gatsby"
+import { graphql, useStaticQuery } from "gatsby"
 import FeaturedRecipeCard from "./FeaturedRecipeCard"
-import { GET_ALL_RECIPES } from "../queries/queries"
+import gql from "graphql-tag"
 
+const GET_ALL_RECIPES = graphql`
+  query GET_ALL_RECIPES {
+    allStrapiRecipe(limit: 3, sort: { fields: createdAt, order: DESC }) {
+      edges {
+        node {
+          description
+          recipename
+          excerpt
+          ingredients {
+            amount
+            measurement
+            name
+          }
+          id
+          strapiId
+          slug
+          picture {
+            childImageSharp {
+              fixed(height: 300, width: 300) {
+                src
+              }
+            }
+          }
+          createdAt(formatString: "MM/DD/YYYY")
+        }
+      }
+    }
+  }
+`
 const FeaturedRecipeWrapper = styled.div`
   grid-column: 2;
   h1 {

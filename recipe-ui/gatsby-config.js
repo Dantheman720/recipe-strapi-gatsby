@@ -21,7 +21,7 @@ module.exports = {
         // This is field under which it's accessible
         fieldName: "strapi",
         // Url to query from
-        url: "http://localhost:1337/graphql",
+        url: "http://159.203.74.177:1337/graphql",
       },
     },
     `gatsby-transformer-sharp`,
@@ -29,7 +29,7 @@ module.exports = {
     {
       resolve: `gatsby-source-strapi`,
       options: {
-        apiURL: `http://localhost:1337`,
+        apiURL: `http://159.203.74.177:1337`,
         queryLimit: 1000, // Default to 100
         contentTypes: [`recipe`],
         // Possibility to login with a strapi user, when content types are not publically available (optional).
